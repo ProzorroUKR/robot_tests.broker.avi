@@ -1206,6 +1206,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.name
   Click Element      xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.address.countryName
@@ -1213,6 +1214,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.address.countryName
   Click Element      xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.address.locality
@@ -1220,6 +1222,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.address.locality
   Click Element      xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.address.postalCode
@@ -1227,6 +1230,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.address.postalCode
   Click Element      xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.address.region
@@ -1234,6 +1238,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.address.region
   Click Element      xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.address.streetAddress
@@ -1241,6 +1246,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.address.streetAddress
   Click Element      xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.contactPoint.name
@@ -1248,6 +1254,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.contactPoint.name
   Click Element      xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.contactPoint.telephone
@@ -1255,6 +1262,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.contactPoint.telephone
   Click Element     xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.contactPoint.url
@@ -1262,6 +1270,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.contactPoint.url
   Click Element      xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.identifier.legalName
@@ -1269,6 +1278,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.identifier.legalName
   Click Element     xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.identifier.id
@@ -1276,6 +1286,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.identifier.id
   Click Element     xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про procuringEntity.identifier.scheme
@@ -1283,6 +1294,7 @@ Login
   Sleep   1
   ${value}=   Отримати текст із поля і показати на сторінці   procuringEntity.identifier.scheme
   Click Element     xpath=//div[@id='publisher-info-modal']//button[@class='close']
+  Sleep  1
   [return]  ${value}
 
 Отримати інформацію про auctionPeriod.startDate
@@ -2497,7 +2509,7 @@ Scroll Page To Element
   Wait Until Element Is Visible  id=procuringEntityLegalName
   ${legalName}=                  Get Text  id=procuringEntityLegalName
   Click Element                  xpath=//div[@id='publisher-info-modal']//button[@class='close']
-
+  Sleep                          1
   [return]  ${legalName}
 
 Отримати інформацію із предмету в плані
