@@ -2523,7 +2523,7 @@ Scroll Page To Element
   ${procurementMethodTypeUkr}=  procurement_method_types  ${planData.data.tender.procurementMethodType}
   ${budgetYear} =               date_to_format            ${planData.data.tender.tenderPeriod.startDate}  %Y
   ${tenderPeriod}=              date_to_format            ${planData.data.tender.tenderPeriod.startDate}  %Y/%m
-  ${budgetAmount}=              Convert To String         ${planData.data.budget.amount}
+  ${budgetAmount}=              convert_float_to_string   ${planData.data.budget.amount}
   ${budgetCurrency}=            currency_types            ${planData.data.budget.currency}
 
   Input Text             id=plan-title  ${planData.data.budget.description}

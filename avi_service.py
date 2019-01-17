@@ -301,3 +301,6 @@ def add_min_to_date_without_ms(date, minutes):
 def subtract_min_from_date(date, minutes):
     date_obj = datetime.strptime(date.split("+")[0], '%Y-%m-%dT%H:%M:%S.%f')
     return "{}+{}".format(date_obj - timedelta(minutes=minutes), date.split("+")[1])
+
+def convert_float_to_string(number):
+    return format(number, '.2f')
