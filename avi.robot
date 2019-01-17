@@ -2699,8 +2699,10 @@ Scroll Page To Element
 Отримати інформацію із донора закупівлі
   [Arguments]  ${userName}  ${tenderId}  ${fieldName}
   Click Element       id=funder-info
+  Sleep               1
   ${fieldValue}=      Отримати текст із поля і показати на сторінці  ${fieldName}
   Click Element       xpath=//div[@id='funder-info-modal']//button[@class='close']
+  Sleep               1
   [return]            ${fieldValue}
 
 Отримати інформацію про mainProcurementCategory

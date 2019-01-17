@@ -237,7 +237,7 @@ def prepare_test_data(tender_data):
                     tender_data['data']['tenderPeriod']['endDate'], 20)
   
     # belowThreshold complaints
-    if not tender_data.data.has_key('procurementMethodType'):
+    if not tender_data.data.has_key('procurementMethodType') and not tender_data.data.has_key('funders'):
         if tender_data.data['submissionMethodDetails'] == 'quick':
             tender_data['data']['enquiryPeriod']['endDate'] = add_min_to_date(
                     tender_data['data']['enquiryPeriod']['endDate'], 25) 
