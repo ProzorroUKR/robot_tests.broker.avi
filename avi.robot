@@ -2109,8 +2109,10 @@ Scroll Page To Element
   Choose File                                 css=.document-img  ${filePath}
   Wait Until Element Is Visible               xpath=//div[contains(., 'Done')]
   Click Element                               xpath=//button[@name='Qualification[status]']
-  Wait Until Element Is Visible               xpath=//button[@name='Qualification[status]']
-  Click Element                               xpath=//button[@name='Qualification[status]']
+
+  Sleep                                       2
+  Wait Until Element Is Visible               xpath=//button[@name='Qualification[status]' and not(contains(@class, 'inactive-opacity'))]
+  Click Element                               xpath=//button[@name='Qualification[status]' and not(contains(@class, 'inactive-opacity'))]
   Wait Until Element Is Visible               id=qualificationCancel
 
 Підтвердити постачальника
