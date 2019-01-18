@@ -204,7 +204,7 @@ def main_procurement_category_types(category, reverse = False):
 
     return  list.get(category)
 
-def prepare_test_data(tender_data):
+def prepare_test_data(tender_data, isComplaints):
     tender_data.data.procuringEntity['name']                    = u'ТОВ 4k-soft'
     tender_data.data.procuringEntity['identifier']['id']        = u'12345678'
     tender_data.data.procuringEntity['identifier']['legalName'] = u'ТОВ 4k-soft'
@@ -237,7 +237,7 @@ def prepare_test_data(tender_data):
                     tender_data['data']['tenderPeriod']['endDate'], 20)
   
     # belowThreshold complaints
-    if not tender_data.data.has_key('procurementMethodType') and not tender_data.data.has_key('funders'):
+    if isComplaints and not tender_data.data.has_key('procurementMethodType'):
         if tender_data.data['submissionMethodDetails'] == 'quick':
             tender_data['data']['enquiryPeriod']['endDate'] = add_min_to_date(
                     tender_data['data']['enquiryPeriod']['endDate'], 25) 
@@ -254,8 +254,8 @@ def prepare_test_data(tender_data):
             tender_data['data']['tenderPeriod']['endDate'] = subtract_min_from_date(
                     tender_data['data']['tenderPeriod']['endDate'], 20)
             tender_data.data['procurementMethodDetails'] = "quick, accelerator=280"
-
-    if tender_data.data.has_key('procurementMethodType') and tender_data.data['procurementMethodType'] == 'aboveThresholdUA':
+    # aboveThresholdUA complaints
+    if isComplaints and tender_data.data.has_key('procurementMethodType') and tender_data.data['procurementMethodType'] == 'aboveThresholdUA':
          tender_data.data['procurementMethodDetails'] = "quick, accelerator=720"
          tender_data['data']['tenderPeriod']['endDate'] = subtract_min_from_date(
                     tender_data['data']['tenderPeriod']['endDate'], 10)
