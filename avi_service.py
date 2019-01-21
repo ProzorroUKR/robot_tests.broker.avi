@@ -257,8 +257,8 @@ def prepare_test_data(tender_data, isComplaints):
     # aboveThresholdUA complaints
     if isComplaints and tender_data.data.has_key('procurementMethodType') and tender_data.data['procurementMethodType'] == 'aboveThresholdUA':
          tender_data.data['procurementMethodDetails'] = "quick, accelerator=720"
-         tender_data['data']['tenderPeriod']['endDate'] = subtract_min_from_date(
-                    tender_data['data']['tenderPeriod']['endDate'], 10)
+         # tender_data['data']['tenderPeriod']['endDate'] = subtract_min_from_date(
+         #            tender_data['data']['tenderPeriod']['endDate'], 10)
 
     for item in tender_data.data['items']:
         if item.has_key('deliveryDate'):
