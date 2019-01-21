@@ -122,7 +122,11 @@ ${locator.funders[0].contactPoint.url}                         id=funderContactP
 
 Підготувати клієнт для користувача
   [Arguments]  ${userName}
-  Open Browser         ${BROKERS['${broker}'].homepage}  ${USERS.users['${userName}'].browser}  alias=${userName}
+
+  ${alias}=              Catenate   SEPARATOR=   role_  ${username}
+  Set Global Variable    ${BROWSER_ALIAS}  ${alias}
+
+  Open Browser         ${BROKERS['${broker}'].homepage}  ${USERS.users['${userName}'].browser}  alias=${alias}
   Set Window Size      @{USERS.users['${userName}'].size}
   Set Window Position  @{USERS.users['${userName}'].position}
 
@@ -481,6 +485,8 @@ Login
 
 Пошук тендера по ідентифікатору
   [Arguments]  ${userName}  ${tenderId}  ${secondStage}=${None}
+
+  Switch Browser  ${BROWSER_ALIAS}
 
   Run Keyword And Return If   "UA-P" in "${tenderId}"   avi.Пошук плану по ідентифікатору   ${userName}   ${tenderId}
 
