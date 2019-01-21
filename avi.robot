@@ -111,7 +111,11 @@ ${locator.funders[0].contactPoint.url}                         id=funderContactP
 *** Keywords ***
 Підготувати дані для оголошення тендера
   [Arguments]  ${userName}  ${tenderData}  ${role_name}
-  ${tenderData}=      prepare_test_data  ${tenderData}
+
+  ${isComplaints}=  Run Keyword And Return Status
+  ...  Should Be Equal  '${SUITE NAME}'  'Tests Files.Complaints'
+
+  ${tenderData}=      prepare_test_data  ${tenderData}  ${isComplaints}
   ${lotsExist}=        Run Keyword And Return Status   Dictionary Should Contain Key  ${tenderData.data}  lots
   Set Global Variable  ${lotsExist}   ${lotsExist}
   [return]             ${tenderData}
@@ -674,7 +678,6 @@ Login
   Click Element   id=bidPublication
   Run Keyword If  ${lotsExist}  Підтвердити пропозицію у модальному вікні
   Показати вкладку моя пропозиція
-  Capture Page Screenshot
   Click Element                  id=bidActiveTender
   Wait Until Element Is Visible  xpath=//a[@href='#items' or @href='#lots']
   На початок сторінки
@@ -694,6 +697,10 @@ Login
 Показати вкладку моя пропозиція
   На початок сторінки
   Скролл до табів
+
+  ${currentUrl}=              Get Location
+  Run Keyword And Return If  "#myBid" in "${currentUrl}"  Sleep  1
+
   Wait Until Element Is Visible  xpath=//a[@href='#myBid']
   Click Element                  xpath=//a[@href='#myBid']
   Sleep                          1
@@ -753,12 +760,12 @@ Login
   Run Keyword If   ${lotsExist}   Підтвердити пропозицію у модальному вікні
 
 Змінити тип документа в пропозиції
-  [Arguments]   ${locator}   ${documentType}
-  ${documentType}=    test_documentType_to_option_type   ${documentType}
+  [Arguments]   ${locator}   ${documentName}
+  ${documentType}=    test_documentType_to_option_type   ${documentName}
   Run Keyword And Ignore Error   Select From List By Value   ${locator}//select   ${documentType}
 
 Завантажити документ в ставку
-  [Arguments]  ${userName}  ${filePath}  ${tenderId}  ${documentType}=${EMPTY}
+  [Arguments]  ${userName}  ${filePath}  ${tenderId}  ${documentName}=${EMPTY}  ${documentType}=${None}
   avi.Пошук тендера по ідентифікатору  ${userName}  ${tenderId}
   Показати вкладку моя пропозиція
   Wait Until Element Is Visible  id=bidEditTender
@@ -776,8 +783,8 @@ Login
   Choose File                    xpath=//div[contains(@class, 'form-documents-item')][last()]//input[@class='document-img']  ${filePath}
   Wait Until Element Is Visible  xpath=//div[contains(., 'Done')]
 
-  Run Keyword If  '${documentType}' != ''
-  ...  Змінити тип документа в пропозиції  xpath=//div[contains(@class, 'form-documents-item')][last()]  ${documentType}
+  Run Keyword If  '${documentName}' != ''
+  ...  Змінити тип документа в пропозиції  xpath=//div[contains(@class, 'form-documents-item')][last()]  ${documentName}
 
   Run Keyword And Ignore Error  Select Checkbox  xpath=//input[contains(@id, 'isqualificationcriterion')]
   Run Keyword And Ignore Error  Select Checkbox  xpath=//input[contains(@id, 'nogroundsrejecting')]
@@ -2109,8 +2116,10 @@ Scroll Page To Element
   Choose File                                 css=.document-img  ${filePath}
   Wait Until Element Is Visible               xpath=//div[contains(., 'Done')]
   Click Element                               xpath=//button[@name='Qualification[status]']
-  Wait Until Element Is Visible               xpath=//button[@name='Qualification[status]']
-  Click Element                               xpath=//button[@name='Qualification[status]']
+
+  Sleep                                       2
+  Wait Until Element Is Visible               xpath=//button[@name='Qualification[status]' and not(contains(@class, 'inactive-opacity'))]
+  Click Element                               xpath=//button[@name='Qualification[status]' and not(contains(@class, 'inactive-opacity'))]
   Wait Until Element Is Visible               id=qualificationCancel
 
 Підтвердити постачальника
@@ -2156,6 +2165,11 @@ Scroll Page To Element
 Підтвердити підписання контракту для openeu
   Накласти ЄЦП
   Wait Until Element Is Visible  xpath=//button[@data-status='3']
+
+  ${currentDate}=                get_contract_end_date
+  Execute Javascript             $('#contract-period-enddate').val('${currentDate}');
+  Sleep                          1
+
   Click Element                  xpath=//button[@data-status='3']
 
 Підтвердити підписання контракту для openua_defense
@@ -2205,6 +2219,8 @@ Scroll Page To Element
   Run Keyword And Return If  '${mode}' == 'negotiation'  Підтвердити контракт для переговорної
   Scroll Page To Element                       id=documents-box
   Click Element                                xpath=//button[@data-status='4']
+
+  Sleep                                        2
   Wait Until Element Is Visible                xpath=//a[@data-status='10']
 
   Scroll Page To Element                       css=.box-buttons
