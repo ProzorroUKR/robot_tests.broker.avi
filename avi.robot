@@ -712,7 +712,7 @@ Login
   Sleep                          1
 
 Отримати статус цінової пропозиції
-  Wait Until Keyword Succeeds   10 x   30 s   Run Keywords
+  Wait Until Keyword Succeeds   15 x   30 s   Run Keywords
   ...   Reload Page
   ...   AND   Показати вкладку моя пропозиція
   ...   AND   Element Should Be Visible   css=.bid-status
@@ -2187,6 +2187,11 @@ Scroll Page To Element
   Накласти ЄЦП
   Wait Until Element Is Visible  xpath=//button[@data-status='3']
   Scroll Page To Element         id=documents-box
+
+  ${currentDate}=     get_contract_end_date
+  Execute Javascript  $('#contract-period-enddate').val('${currentDate}');
+  Sleep               1
+
   Click Element                  xpath=//button[@data-status='3']
 
 Підтвердити підписання контракту
@@ -2868,6 +2873,7 @@ Scroll Page To Element
   Input Text     id=contract-amountpaid  ${valueAmount}
   Sleep                          1
   Click Element                  xpath=//button[@data-status='4']
+  Sleep                          2
   Wait Until Element Is Visible  xpath=//a[@data-status='10']
 
 Встановити дату підписання угоди
@@ -2914,6 +2920,7 @@ Scroll Page To Element
   Run Keyword If  ${documentBoxIsOpened}  Click Element  xpath=//button[@data-status='1']
   ...  ELSE  Click Element  xpath=//button[@data-status='4']
 
+  Sleep                          2
   Wait Until Element Is Visible  xpath=//a[@data-status='10']
 
 Вказати період дії угоди
@@ -2933,6 +2940,7 @@ Scroll Page To Element
   Execute Javascript             $('#contract-period-enddate').val('${endDate}');
   Sleep                          1
   Click Element                  xpath=//button[@data-status='4']
+  Sleep                          2
   Wait Until Element Is Visible  xpath=//a[@data-status='10']
 
 Завантажити документ в угоду
