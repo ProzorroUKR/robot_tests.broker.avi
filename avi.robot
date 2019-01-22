@@ -712,7 +712,7 @@ Login
   Sleep                          1
 
 Отримати статус цінової пропозиції
-  Wait Until Keyword Succeeds   10 x   30 s   Run Keywords
+  Wait Until Keyword Succeeds   15 x   30 s   Run Keywords
   ...   Reload Page
   ...   AND   Показати вкладку моя пропозиція
   ...   AND   Element Should Be Visible   css=.bid-status
