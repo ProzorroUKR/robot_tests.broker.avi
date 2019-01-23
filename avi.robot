@@ -836,6 +836,7 @@ Login
 
   Run Keyword And Ignore Error  Select Checkbox  xpath=//input[contains(@id, 'isqualificationcriterion')]
   Run Keyword And Ignore Error  Select Checkbox  xpath=//input[contains(@id, 'nogroundsrejecting')]
+  Sleep  8
 
   Click Element    id=bidPublication
   Run Keyword If  ${lotsExist} and '${mode}' != 'open_competitive_dialogue'  Підтвердити пропозицію у модальному вікні
