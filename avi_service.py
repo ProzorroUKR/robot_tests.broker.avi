@@ -215,11 +215,11 @@ def prepare_test_data(tender_data, isComplaints):
         tender_data.data['budget']['project']['name'] = ""
         return tender_data
 
-    if tender_data.data.has_key('funders'):
-        tender_data.data.funders[0]['name']                      = u'Світовий Банк'
-        tender_data.data.funders[0]['identifier']['legalName']   = u'Міжнародний банк реконструкції та розвитку (МБРР)'
-        tender_data.data.funders[0]['contactPoint']['telephone'] = u'+38044 4906671'
-        tender_data.data.funders[0]['contactPoint']['name']      = u'Дар’я Гулей'
+    # if tender_data.data.has_key('funders'):
+    #     tender_data.data.funders[0]['name']                      = u'Світовий Банк'
+    #     tender_data.data.funders[0]['identifier']['legalName']   = u'Міжнародний банк реконструкції та розвитку (МБРР)'
+    #     tender_data.data.funders[0]['contactPoint']['telephone'] = u'+38044 4906671'
+    #     tender_data.data.funders[0]['contactPoint']['name']      = u'Дар’я Гулей'
 
     tender_data.data.procuringEntity['address']['streetAddress'] = u'Хрещатик, 1'
     tender_data.data.procuringEntity['address']['region']        = u'місто Київ'
