@@ -840,6 +840,8 @@ Login
   Click Element    id=bidPublication
   Run Keyword If  ${lotsExist} and '${mode}' != 'open_competitive_dialogue'  Підтвердити пропозицію у модальному вікні
 
+  Sleep  10
+
 Оновити сторінку з тендером
   [Arguments]  ${userName}  ${tenderId}
   avi.Пошук тендера по ідентифікатору   ${userName}   ${tenderId}
@@ -1979,6 +1981,7 @@ Scroll Page To Element
 
 Накласти ЄЦП
   Execute Javascript  $.post($("a[href*='/ecp/']").attr("href"), {sign:"fake"}, function(){ location.reload();});
+  Sleep               3
 
 Скролл до табів
   Scroll Page To Element  css=.nav-tabs-ubiz
@@ -2166,6 +2169,11 @@ Scroll Page To Element
 Підтвердити підписання контракту для openua
   Накласти ЄЦП
   Wait Until Element Is Visible  xpath=//button[@data-status='3']
+
+  ${currentDate}=                get_contract_end_date
+  Execute Javascript             $('#contract-period-enddate').val('${currentDate}');
+  Sleep                          1
+
   Click Element                  xpath=//button[@data-status='3']
 
 Підтвердити підписання контракту для openeu
@@ -2181,6 +2189,11 @@ Scroll Page To Element
 Підтвердити підписання контракту для openua_defense
   Накласти ЄЦП
   Wait Until Element Is Visible  xpath=//button[@data-status='3']
+
+  ${currentDate}=                get_contract_end_date
+  Execute Javascript             $('#contract-period-enddate').val('${currentDate}');
+  Sleep                          1
+
   Click Element                  xpath=//button[@data-status='3']
 
 Підтвердити підписання контракту для competitive_dialogue
