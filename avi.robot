@@ -743,7 +743,12 @@ Login
   Click Element   id=cancelProposition
 
 Активувати цінову пропозицію
-  Wait Until Element Is Visible   id=bidActiveTender
+
+  Wait Until Keyword Succeeds   15 x   30 s   Run Keywords
+  ...       Reload Page
+  ...  AND  Sleep                          2
+  ...  AND  Wait Until Element Is Visible  id=bidActiveTender
+
   Click Link                      id=bidActiveTender
   Wait Until Element Is Visible   id=publisher-info
 
