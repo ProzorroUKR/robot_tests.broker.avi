@@ -1711,8 +1711,18 @@ Wait Element Visibility And Click
   avi.Пошук тендера по ідентифікатору   ${userName}   ${tenderId}
   Run Keyword If  '${fieldName}' == 'status'  Run Keyword And Ignore Error  avi.Оновити сторінку з тендером  ${userName}  ${tenderId}
   Скролл до табів
+
+  ${isOpenUa}=  Run Keyword And Return Status
+  ...  Should Be Equal  '${mode}'  'openua'
+
+  ${isLotComplaint}=  Run Keyword And Return Status
+  ...  Should Be Equal  '${TEST_NAME}'  'Відображення кінцевих статусів двох останніх вимог'
+
+  ${openAwardTab}=  Set Variable If  ${isOpenUa} and ${isLotComplaint}  ${False}  ${True}
+
   ${isAwardComplaint}=  Run Keyword And Return Status  Element Should Be Visible  xpath=//a[@href='#awards']
-  Run Keyword If  ${isAwardComplaint}  Click Element   xpath=//a[@href='#awards']
+
+  Run Keyword If  ${isAwardComplaint} and ${openAwardTab}  Click Element   xpath=//a[@href='#awards']
   ...   ELSE                           Скарги до початку кваліфікації переможця
   Wait Until Element Is Visible  xpath=//div[@data-complaintid='${complaintId}']
 
@@ -3042,3 +3052,14 @@ Scroll Page To Element
   Wait Until Element Is Visible   id=publisher-info  45
   ${complaintId}=                 Get Element Attribute  xpath=//div[@class='form_box mrgn-t20']//div[@class='dib']/div[last()]@data-complaintid
   [return]                        ${complaintId}
+
+Отримати інформацію про auctionPeriod.endDate
+  На початок сторінки
+
+  Wait Until Keyword Succeeds   5 x  30 s   Run Keywords
+  ...       Click Element                  id=reloadTender
+  ...  AND  Wait Until Element Is Visible  id=auctionPeriodEnd
+
+  ${auctionPeriodEnd}=  Get Text  id=auctionPeriodEnd
+  ${auctionPeriodEnd}=  convert_date_for_compare  ${auctionPeriodEnd}
+  [return]              ${auctionPeriodEnd}
