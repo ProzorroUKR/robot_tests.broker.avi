@@ -2010,6 +2010,10 @@ Scroll Page To Element
   Set To Dictionary  ${USERS.users['${userName}']['supplier_data']['data']['suppliers'][0]['contactPoint']}   telephone=${contactPointPhone}
 
   avi.Пошук тендера по ідентифікатору  ${userName}  ${tenderId}
+
+  Wait Until Element Is Visible  id=ecpTender
+  Накласти ЄЦП
+
   Wait Until Element Is Visible     id=addAwardTender   15
   Click Element                     id=addAwardTender
   Wait Until Element Is Visible     id=supplier-name   15
