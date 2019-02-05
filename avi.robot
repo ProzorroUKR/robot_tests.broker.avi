@@ -663,8 +663,8 @@ Login
   ${yearlyPaymentsPercentage}=  get_percent  ${bidData.data.lotValues[0].value.yearlyPaymentsPercentage}
   ${yearlyPaymentsPercentage}=  Convert To String  ${yearlyPaymentsPercentage}
 
-  ${hasParametrs}=  Run Keyword And Return Status   Dictionary Should Contain Key  ${bidData}  parameters
-  Run Keyword If  ${hasParametrs}  Пропозиція з неціновими показниками   ${bidData.parameters}
+  ${hasParametrs}=  Run Keyword And Return Status   Dictionary Should Contain Key  ${bidData.data}  parameters
+  Run Keyword If  ${hasParametrs}  Пропозиція з неціновими показниками   ${bidData.data.parameters}
 
   Execute Javascript  setMySelectBox('bidenergy-contractdurationyears-${relatedLotId}', '${contractDurationYears}');
   Sleep               1
