@@ -329,6 +329,10 @@ Login
   Input text  id=${formFieldName}-name       ${contactPoint.name}
   Input text  id=${formFieldName}-email      ${contactPoint.email}
   Input text  id=${formFieldName}-faxNumber  ${contactPoint.faxNumber}
+
+  Execute Javascript  $('#${formFieldName}-telephone').val(null);
+  Sleep               1
+
   Input text  id=${formFieldName}-telephone  ${contactPoint.telephone}
   Input text  id=${formFieldName}-url        ${contactPoint.url}
 
@@ -592,8 +596,8 @@ Login
 
 Пропозиція на мультилот
   [Arguments]  ${bidData}
-  ${hasParametrs}=   Run Keyword And Return Status  Dictionary Should Contain Key  ${bidData.data}  parameters
-  Run Keyword If  ${hasParametrs}  Пропозиція з неціновими показниками  ${bidData.data.parameters}
+  ${hasParametrs}=   Run Keyword And Return Status  Dictionary Should Contain Key  ${bidData}  parameters
+  Run Keyword If  ${hasParametrs}  Пропозиція з неціновими показниками  ${bidData.parameters}
   Цінова пропозиція мультилот  ${bidData.lotValues[0].value.amount}
 
 Подати цінову пропозицію
@@ -659,8 +663,8 @@ Login
   ${yearlyPaymentsPercentage}=  get_percent  ${bidData.data.lotValues[0].value.yearlyPaymentsPercentage}
   ${yearlyPaymentsPercentage}=  Convert To String  ${yearlyPaymentsPercentage}
 
-  ${hasParametrs}=  Run Keyword And Return Status   Dictionary Should Contain Key  ${bidData.data}  parameters
-  Run Keyword If  ${hasParametrs}  Пропозиція з неціновими показниками   ${bidData.data.parameters}
+  ${hasParametrs}=  Run Keyword And Return Status   Dictionary Should Contain Key  ${bidData}  parameters
+  Run Keyword If  ${hasParametrs}  Пропозиція з неціновими показниками   ${bidData.parameters}
 
   Execute Javascript  setMySelectBox('bidenergy-contractdurationyears-${relatedLotId}', '${contractDurationYears}');
   Sleep               1
@@ -2025,6 +2029,10 @@ Scroll Page To Element
   Input text                        id=contactPoint-name        ${supplier_data.data.suppliers[0].contactPoint.name}
   Input text                        id=contactPoint-email       ${supplier_data.data.suppliers[0].contactPoint.email}
   Input text                        id=contactPoint-faxNumber   ${supplier_data.data.suppliers[0].contactPoint.faxNumber}
+
+  Execute Javascript  $('#contactPoint-telephone').val(null);
+  Sleep               1
+
   Input text                        id=contactPoint-telephone   ${supplier_data.data.suppliers[0].contactPoint.telephone}
   Input text                        id=contactPoint-url         ${supplier_data.data.suppliers[0].contactPoint.url}
   ${region}=                        Get From Dictionary         ${supplier_data.data.suppliers[0].address}     region
@@ -2261,7 +2269,12 @@ Scroll Page To Element
 
   Run Keyword And Return If  '${mode}' == 'negotiation'  Підтвердити контракт для переговорної
   Scroll Page To Element                       id=documents-box
-  Click Element                                xpath=//button[@data-status='4']
+
+  ${isVisibleUploadContractButton}=   Run Keyword And Return Status
+  ...   Element Should Be Visible  xpath=//button[@data-status='1']
+
+  Run Keyword If  ${isVisibleUploadContractButton}  Click Element  xpath=//button[@data-status='1']
+  ...   ELSE  Click Element   xpath=//button[@data-status='4']
 
   Sleep                                        2
   Wait Until Element Is Visible                xpath=//a[@data-status='10']
