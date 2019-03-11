@@ -1540,7 +1540,11 @@ Login
 Додати предмет
   [Arguments]  ${item}  ${features}
   ${quantity}=              Convert To String     ${item.quantity}
-  ${unitName}=              Convert To Lowercase  ${item.unit.name}
+
+  ${hasUnit}=   Run Keyword And Return Status  Dictionary Should Contain Key  ${item}  unit
+  ${unitName}=  Set Variable If  ${hasUnit}  ${item.unit.name}  ${Empty}
+
+  ${unitName}=              Convert To Lowercase  ${unitName}
   ${mainClassificationId}=  Get From Dictionary   ${item.classification}  id
 
   Wait Until Page Contains Element   xpath=//textarea[contains(@id, '${procurementMethodTypeLower}item-description')]
